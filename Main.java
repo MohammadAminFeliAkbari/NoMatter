@@ -36,8 +36,7 @@ public class Main {
             return newNode;
         }
 
-        public void log(){
-            
+        public void log() {
         }
 
         private class Node {
@@ -75,5 +74,69 @@ public class Main {
             }
 
         }
+        
+        class ArrayQueue<E> implements IQueue<E> {
+            private E[] items;
+            private int front;
+            private int rear;
+            private int length;
+
+            public ArrayQueue(int size) {
+                items = (E[]) new Object[size];
+                front = rear = -1;
+            }
+
+            public void add(E item) throws QueueOverflowException {
+                if (isFull())
+                    throw new QueueOverflowException();
+                if (isEmpty())
+                    front = rear = 0;
+                else if (rear >= items.length - 1)
+                    rear = 0;
+                else
+                    rear++;
+                items[rear] = item;
+                length++;
+            }
+
+            private boolean isFull() {
+                // return front == 0 && rear == items.length - 1 || rear + 1 == front;
+                return length == items.length;
+            }
+
+            public E delete() throws QueueUnderflowException {
+                if (isEmpty())
+                    throw new QueueUnderflowException();
+                var item = items[front];
+                if (front == rear)
+                    front = rear = -1;
+                else if (front == items.length - 1)
+                    front = 0;
+                else
+                    front++;
+                length--;
+                return item;
+            }
+
+            public E front() throws QueueUnderflowException {
+                if (isEmpty())
+                    throw new QueueUnderflowException();
+                return items[front];
+            }
+
+            public boolean isEmpty() {
+                return front == -1;
+            }
+
+            public int length() {
+                return length;
+            }
+
+            public void clear() {
+                front = rear = -1;
+                length = 0;
+            }
+        }
+
     }
 }
