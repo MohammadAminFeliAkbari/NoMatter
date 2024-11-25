@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class Main {
@@ -44,16 +41,22 @@ public class Main {
         public void log() {
             ArrayQueue<Node> arr = new ArrayQueue<>(10);
             arr.add(root);
+            int i = 0; // for don't print , in first line
 
             while (!arr.isEmpty()) {
                 Node newNode = arr.delete();
 
                 try {
-                    System.out.println(newNode.data);
+                    var nnn = newNode.data;
+                    if (i != 0) {
+                        System.out.print(",");
+                    }
+                    i++;
+                    System.out.print(newNode.data);
                 } catch (Exception E) {
-                    System.out.println("null");
+                    System.out.print(",null");
                 }
-                
+
                 if (newNode != null) {
                     arr.add(newNode.getLeftNode());
                     arr.add(newNode.getRightNode());
