@@ -15,6 +15,10 @@ public class Main {
         tree.log();
     }
 
+    static void sayHello(){
+        System.out.println("hello");
+    }
+
     static class Tree {
         private Node root;
 
