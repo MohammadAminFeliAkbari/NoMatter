@@ -11,6 +11,7 @@ public class Main {
 
         Tree tree = new Tree(listStr);
 
+        tree.log();
     }
 
     static class Tree {
@@ -25,18 +26,39 @@ public class Main {
         }
 
         public Node inOrder_tree(String[] str, int root) {
-            if (str[root] == null || str[root].equals("null"))
+            try {
+                if (str[root] == null || str[root].equals("null"))
+                    return null;
+            } catch (Exception e) {
                 return null;
+            }
 
             Node newNode = new Node(Integer.parseInt(str[root]));
 
-            newNode.setRightNode(inOrder_tree(str, root * 2 + 1));
-            newNode.setLeftNode(inOrder_tree(str, root * 2 + 2));
+            newNode.setLeftNode(inOrder_tree(str, root * 2 + 1));
+            newNode.setRightNode(inOrder_tree(str, root * 2 + 2));
 
             return newNode;
         }
 
         public void log() {
+            ArrayQueue<Node> arr = new ArrayQueue<>(10);
+            arr.add(root);
+
+            while (!arr.isEmpty()) {
+                Node newNode = arr.delete();
+
+                try {
+                    System.out.println(newNode.data);
+                } catch (Exception E) {
+                    System.out.println("null");
+                }
+                
+                if (newNode != null) {
+                    arr.add(newNode.getLeftNode());
+                    arr.add(newNode.getRightNode());
+                }
+            }
         }
 
         private class Node {
@@ -74,8 +96,8 @@ public class Main {
             }
 
         }
-        
-        class ArrayQueue<E> implements IQueue<E> {
+
+        class ArrayQueue<E> {
             private E[] items;
             private int front;
             private int rear;
