@@ -38,6 +38,8 @@ public class Main {
                 return null;
             }
 
+            System.out.println("hello");
+
             Node newNode = new Node(Integer.parseInt(str[root]));
 
             newNode.setLeftNode(inOrder_tree(str, root * 2 + 1));
