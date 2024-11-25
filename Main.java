@@ -5,8 +5,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         String[] listStr = scanner.nextLine().split(",");
+        int base = scanner.nextInt();
+        int top = scanner.nextInt();
 
         Tree tree = new Tree(listStr);
+
+        tree.haras(base, top);
 
         tree.log();
     }
@@ -38,6 +42,21 @@ public class Main {
             return newNode;
         }
 
+        public void haras(int base, int top) {
+            haras(root, base, top);
+        }
+
+        private void haras(Node root, int base, int top) {
+            if (root == null)
+                return;
+
+            if (Integer.parseInt((String) root.getData()) < base || Integer.parseInt((String) root.getData()) > top)
+                root.setData(null);
+                
+            haras(root.getLeftNode(), base, top);
+            haras(root.getRightNode(), base, top);
+        }
+
         public void log() {
             ArrayQueue<Node> arr = new ArrayQueue<>(10);
             arr.add(root);
@@ -64,13 +83,13 @@ public class Main {
             }
         }
 
-        private class Node {
+        private class Node<E> {
 
             private Node rightNode;
             private Node leftNode;
-            private int data;
+            private E data;
 
-            public Node(int data) {
+            public Node(E data) {
                 this.data = data;
             }
 
@@ -90,11 +109,11 @@ public class Main {
                 this.leftNode = leftNode;
             }
 
-            public int getData() {
+            public E getData() {
                 return data;
             }
 
-            public void setData(int data) {
+            public void setData(E data) {
                 this.data = data;
             }
 
