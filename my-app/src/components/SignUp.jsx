@@ -32,18 +32,18 @@ export default function SignUp () {
 
     let flag = true
     Object.entries(value).forEach(([key, val]) => {
-      if (flag && key != 'email' && val.length === 0) {
+      if (flag && key !== 'email' && val.length === 0) {
         flag = false
         return toast.error(error[1])
       }
     })
 
-    if (value.postalCode.length != 10 && flag) {
+    if (value.postalCode.length !== 10 && flag) {
       flag = false
       return toast.error(error[1])
     }
 
-    if (value.phoneNumber.length != 11 && flag) {
+    if (value.phoneNumber.length !== 11 && flag) {
       flag = false
       return toast.error(error[1])
     }
@@ -270,7 +270,7 @@ export default function SignUp () {
         </div>
         {sentRequestButton ? <ButtonAfterLogin /> : <ButtonBeforeLogin />}
       </form>
-      <Toaster position='bottom-right' reverseOrder={false} />
+      <Toaster position='bottom-center' reverseOrder={false} />
     </div>
   )
 }
